@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.trydevs.askyourfriends.askurfrnds.activity.CreateQuiz">
+
+    <include
+        android:id="@+id/top_bar_new_quiz"
+        layout="@layout/top_bar" />
+
+    <com.trydevs.askyourfriends.askurfrnds.tabs.SlidingTabLayout
+        android:id="@+id/tab_layout_create_quiz_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager_create_quiz_activity"
+        android:layout_height="fill_parent"
+        android:layout_width="match_parent" />
+
+</LinearLayout>

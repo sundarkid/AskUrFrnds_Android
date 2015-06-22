@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.trydevs.askyourfriends.askurfrnds.activity.MainActivity">
+
+    <item
+        android:id="@+id/action_result"
+        android:icon="@drawable/ic_result"
+        android:title="@string/action_result"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_log_out"
+        android:title="@string/action_logout"
+        app:showAsAction="always" />
+</menu>

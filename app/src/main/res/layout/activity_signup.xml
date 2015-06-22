@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.trydevs.askyourfriends.askurfrnds.activity.SignupActivity">
+
+    <include
+        android:id="@+id/top_bar_signup"
+        layout="@layout/top_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/signup_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Name"
+            android:lines="1" />
+
+        <EditText
+            android:id="@+id/signup_mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/mail"
+            android:inputType="textEmailAddress"
+            android:lines="1" />
+
+        <EditText
+            android:id="@+id/signup_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:lines="1" />
+
+        <EditText
+            android:id="@+id/signup_institution"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/institution"
+            android:inputType="textPersonName"
+            android:lines="1" />
+
+        <EditText
+            android:id="@+id/signup_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/place"
+            android:inputType="textPersonName"
+            android:lines="1" />
+
+        <EditText
+            android:id="@+id/signup_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:lines="1" />
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/table_row_margin">
+
+            <Button
+                android:id="@+id/signup_signup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@color/primary"
+                android:text="@string/signup"
+                android:textColor="@color/text" />
+
+            <Button
+                android:id="@+id/signup_reset"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:background="@color/primary"
+                android:text="@string/clear"
+                android:textColor="@color/text" />
+
+        </TableRow>
+
+    </LinearLayout>
+
+</LinearLayout>

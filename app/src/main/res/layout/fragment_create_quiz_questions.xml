@@ -1,0 +1,162 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.trydevs.askyourfriends.askurfrnds.fragments.FragmentCreateQuizQuestion">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+        android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_8dp">
+
+            <com.andexert.library.RippleView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:rv_color="@color/accent">
+
+                <EditText
+                    android:id="@+id/fragment_create_question_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/editText_question"
+                    android:hint="@string/questionHint"
+                    android:inputType="textShortMessage"
+                    android:maxLines="3" />
+            </com.andexert.library.RippleView>
+
+            <com.andexert.library.RippleView
+            android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            android:gravity="center"
+                android:orientation="vertical"
+                app:rv_color="@color/accent">
+
+                <EditText
+                    android:id="@+id/fragment_create_question_optionA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/optionA"
+                    android:inputType="textShortMessage"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/option_bottom"
+                    android:paddingTop="@dimen/option_top" />
+            </com.andexert.library.RippleView>
+
+            <com.andexert.library.RippleView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:rv_color="@color/accent">
+
+                <EditText
+                    android:id="@+id/fragment_create_question_optionB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/optionB"
+                    android:inputType="textShortMessage"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/option_bottom"
+                    android:paddingTop="@dimen/option_top" />
+            </com.andexert.library.RippleView>
+
+            <com.andexert.library.RippleView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:rv_color="@color/accent">
+
+                <EditText
+                    android:id="@+id/fragment_create_question_optionC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/optionC"
+                    android:inputType="textShortMessage"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/option_bottom"
+                    android:paddingTop="@dimen/option_top" />
+            </com.andexert.library.RippleView>
+
+            <com.andexert.library.RippleView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:rv_color="@color/accent">
+
+                <EditText
+                    android:id="@+id/fragment_create_question_optionD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/optionD"
+                    android:inputType="textShortMessage"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/option_bottom"
+                    android:paddingTop="@dimen/option_top" />
+            </com.andexert.library.RippleView>
+
+            <com.andexert.library.RippleView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rv_color="@color/accent">
+
+                <RadioGroup
+                    android:id="@+id/fragment_create_question_radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/option_bottom">
+
+                    <RadioButton
+                        android:id="@+id/fragment_create_question_radio_0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/answerA" />
+
+                    <RadioButton
+                        android:id="@+id/fragment_create_question_radio_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/answerB" />
+
+                    <RadioButton
+                        android:id="@+id/fragment_create_question_radio_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/answerC" />
+
+                    <RadioButton
+                        android:id="@+id/fragment_create_question_radio_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/answerD" />
+                </RadioGroup>
+            </com.andexert.library.RippleView>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/floating_action_fragment_new_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/ic_add_question"
+        app:fab_colorNormal="@color/primary_light"
+        app:fab_colorPressed="@color/grey_background"
+        app:fab_colorRipple="@color/accent" />
+</android.support.v7.widget.CardView>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/view_question_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8dp"
+            android:text="@string/sample_question" />
+
+        <TextView
+            android:id="@+id/view_question_option_A"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8dp"
+            android:text="@string/optionA" />
+
+        <TextView
+            android:id="@+id/view_question_option_B"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8dp"
+            android:text="@string/optionB" />
+
+        <TextView
+            android:id="@+id/view_question_option_C"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8dp"
+            android:text="@string/optionC" />
+
+        <TextView
+            android:id="@+id/view_question_option_D"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8dp"
+            android:text="@string/optionD" />
+
+        <TextView
+            android:id="@+id/view_question_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8dp"
+            android:background="@color/accent"
+            android:padding="@dimen/_8dp"
+            android:text="@string/answerA"
+            android:textColor="@color/text" />
+    </LinearLayout>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/floating_action_question_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/ic_action_edit"
+        app:fab_colorPressed="@color/grey_background"
+        app:fab_colorRipple="@color/accent" />
+
+</android.support.v7.widget.CardView>

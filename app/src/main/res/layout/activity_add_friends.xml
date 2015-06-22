@@ -1,0 +1,28 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.trydevs.askyourfriends.askurfrnds.activity.AddFriendsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/top_bar_add_friends_activity"
+            layout="@layout/top_bar" />
+
+        <com.trydevs.askyourfriends.askurfrnds.tabs.SlidingTabLayout
+            android:id="@+id/tab_layout_add_friends_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager_add_friends_activity"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
+
+    </LinearLayout>
+
+</FrameLayout>

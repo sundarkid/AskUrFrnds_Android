@@ -29,6 +29,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_QUESTION_ID = "question_id";
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_INSTITUTION = "institution";
     public static final String COLUMN_PHONE = "phone";
     public static final String COLUMN_MAIL = "mail";
     private static final String DB_NAME = "AskUrFrnd_db";
@@ -75,6 +76,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             COLUMN_SNO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_USER_ID + " INTEGER, " +
             COLUMN_NAME + " TEXT, " +
+            COLUMN_INSTITUTION + " TEXT, " +
             COLUMN_MAIL + " TEXT, " +
             COLUMN_PHONE + " TEXT" +
             ");";

@@ -49,6 +49,21 @@ public class MyAdapterViewQuizList extends RecyclerView.Adapter<MyAdapterViewQui
         holder.textViewDate.setText(current.getDate());
     }
 
+    public void listDataAdded(List<Info> list) {
+        if (data.size() > 0)
+            data.addAll(list);
+        else
+            data = list;
+        notifyDataSetChanged();
+    }
+
+    public void newListData(List<Info> list) {
+        if (data.size() > 0)
+            data.clear();
+        data.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return data.size();

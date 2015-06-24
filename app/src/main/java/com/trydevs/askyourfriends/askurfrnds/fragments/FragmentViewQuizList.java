@@ -10,12 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.RequestQueue;
 import com.trydevs.askyourfriends.askurfrnds.Adapters.MyAdapterViewQuizList;
+import com.trydevs.askyourfriends.askurfrnds.DataSet.Info;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.UrlLinksNames;
 import com.trydevs.askyourfriends.askurfrnds.R;
 import com.trydevs.askyourfriends.askurfrnds.extras.MyApplication;
 import com.trydevs.askyourfriends.askurfrnds.extras.SpacesItemDecoration;
+
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -26,7 +29,7 @@ public class FragmentViewQuizList extends Fragment {
     private static int SPACES_BETWEEN_ITEMS = 2;
     RecyclerView recyclerView;
     MyAdapterViewQuizList adapterViewQuizList;
-    RequestQueue requestQueue;
+    List<Info> list;
 
     public FragmentViewQuizList() {
         // Required empty public constructor
@@ -42,12 +45,18 @@ public class FragmentViewQuizList extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_quiz_list);
         SharedPreferences loginDetails = getActivity().getSharedPreferences(UrlLinksNames.getLoginFileName(), 0);
         // Setting Adapter
-        adapterViewQuizList = new MyAdapterViewQuizList(getActivity(), MyApplication.getWritableDatabase().getInfo(), loginDetails.getInt("user_id", 0));
+        list = Collections.emptyList();
+        adapterViewQuizList = new MyAdapterViewQuizList(getActivity(), list, loginDetails.getInt("user_id", 0));
         recyclerView.setAdapter(adapterViewQuizList);
         recyclerView.addItemDecoration(new SpacesItemDecoration(SPACES_BETWEEN_ITEMS));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<Info> newList = MyApplication.getWritableDatabase().getInfo();
+        adapterViewQuizList.newListData(newList);
+    }
 }

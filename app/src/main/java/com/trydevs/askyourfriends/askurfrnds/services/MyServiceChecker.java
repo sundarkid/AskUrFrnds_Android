@@ -8,7 +8,6 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.trydevs.askyourfriends.askurfrnds.DataSet.Friends;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Info;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Questions;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.UrlLinksNames;
@@ -75,7 +74,6 @@ public class MyServiceChecker extends JobService {
 
         @Override
         protected JobParameters doInBackground(JobParameters... jobParameterses) {
-            List<Friends> info = checkInfo();
             return jobParameterses[0];
         }
 
@@ -84,18 +82,19 @@ public class MyServiceChecker extends JobService {
             myServiceChecker.jobFinished(jobParameters, false);
         }
 
-
-        private List<Friends> checkInfo() {
-
-            return null;
-        }
-
-
         private void getQuestionFromServer(Info info) {
             CustomRequest request = new CustomRequest(POST, UrlLinksNames.getUrlDownloadQuiz(), params, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-
+                    if (response.has("result")) {
+                        try {
+                            if (response.getString("result").equalsIgnoreCase("success")) {
+                                decodeData(response);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -111,8 +110,22 @@ public class MyServiceChecker extends JobService {
         }
 
         private void decodeData(JSONObject response) {
+            if (response.has("list")) {
+                try {
+                    String s = response.getString("list");
+                    JSONArray jsonArray = new JSONArray(s);
+                    List<Info> infos = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        infos.add(Info.getInfoFromJSONObject(object));
+                    }
+                    if (infos.size() > 0)
+                        MyApplication.getWritableDatabase().insertInfoList(infos);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
             if (response.has("questions")) {
-                List<Questions> questions = new ArrayList<>();
                 try {
                     String s = response.getString("questions");
                     JSONArray jsonArray = new JSONArray(s);

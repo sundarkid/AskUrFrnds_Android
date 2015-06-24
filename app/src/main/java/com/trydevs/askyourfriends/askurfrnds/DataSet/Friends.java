@@ -18,7 +18,7 @@ public class Friends implements Parcelable {
         }
     };
     long sno, id;
-    String name, mail, phone, request_id;
+    String name, mail, phone, request_id, institution;
 
     public Friends() {
         sno = 0;
@@ -27,6 +27,7 @@ public class Friends implements Parcelable {
         mail = "";
         phone = "";
         request_id = "";
+        institution = "";
     }
 
     protected Friends(Parcel in) {
@@ -36,23 +37,26 @@ public class Friends implements Parcelable {
         this.mail = in.readString();
         this.phone = in.readString();
         this.request_id = in.readString();
+        this.institution = in.readString();
     }
 
     public static Friends getFriendsFromJSONObject(JSONObject object) {
         Friends f = new Friends();
         try {
-            if (object.has("name"))
-                f.setName(object.getString("name"));
-            if (object.has("user_id"))
-                f.setId(object.getLong("user_id"));
-            if (object.has("mail"))
-                f.setMail(object.getString("mail"));
-            if (object.has("phone"))
-                f.setPhone(object.getString("phone"));
+            if (object.has(UrlLinksNames.getJsonName()))
+                f.setName(object.getString(UrlLinksNames.getJsonName()));
+            if (object.has(UrlLinksNames.getJsonUserId()))
+                f.setId(object.getLong(UrlLinksNames.getJsonUserId()));
+            if (object.has(UrlLinksNames.getJsonMail()))
+                f.setMail(object.getString(UrlLinksNames.getJsonMail()));
+            if (object.has(UrlLinksNames.getJsonPhone()))
+                f.setPhone(object.getString(UrlLinksNames.getJsonPhone()));
             if (object.has("sno"))
                 f.setSno(object.getLong("sno"));
-            if (object.has("request_id"))
-                f.setRequest_id(object.getString("request_id"));
+            if (object.has(UrlLinksNames.getJsonRequestId()))
+                f.setRequest_id(object.getString(UrlLinksNames.getJsonRequestId()));
+            if (object.has(UrlLinksNames.getJsonInstitution()))
+                f.setInstitution(object.getString(UrlLinksNames.getJsonInstitution()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -65,6 +69,14 @@ public class Friends implements Parcelable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
     }
 
     public long getSno() {
@@ -141,5 +153,6 @@ public class Friends implements Parcelable {
         dest.writeString(this.mail);
         dest.writeString(this.phone);
         dest.writeString(this.request_id);
+        dest.writeString(this.institution);
     }
 }

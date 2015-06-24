@@ -41,6 +41,21 @@ public class MyAdapterUserList extends RecyclerView.Adapter<MyAdapterUserList.My
         holder.textView.setText(current.getName());
     }
 
+    public void newListData(List<Friends> list) {
+        if (data.size() > 0)
+            data.clear();
+        data.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void listDataAdded(List<Friends> list) {
+        if (data.size() > 0)
+            data.addAll(list);
+        else
+            data = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return data.size();

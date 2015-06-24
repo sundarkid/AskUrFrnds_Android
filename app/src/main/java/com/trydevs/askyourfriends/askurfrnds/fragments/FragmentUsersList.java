@@ -12,9 +12,10 @@ import android.view.ViewGroup;
 import com.trydevs.askyourfriends.askurfrnds.Adapters.MyAdapterUserList;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Friends;
 import com.trydevs.askyourfriends.askurfrnds.R;
+import com.trydevs.askyourfriends.askurfrnds.extras.MyApplication;
 import com.trydevs.askyourfriends.askurfrnds.extras.SpacesItemDecoration;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -25,6 +26,7 @@ public class FragmentUsersList extends Fragment {
 
     RecyclerView recyclerView;
     MyAdapterUserList userListAdapter;
+    List<Friends> list;
     private int SPACES_BETWEEN_ITEMS = 2;
 
     public FragmentUsersList() {
@@ -39,13 +41,7 @@ public class FragmentUsersList extends Fragment {
         // Mapping the views
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewUserList);
         // Dummy data
-        List<Friends> list = new ArrayList<>();
-        for (int i = 100; i < 110; i++) {
-            Friends data = new Friends();
-            data.setName("Name " + (i - 99));
-            data.setId(i);
-            list.add(data);
-        }
+        list = Collections.emptyList();
         // Setting adapter for RecyclerView
         userListAdapter = new MyAdapterUserList(getActivity(), list);
         recyclerView.setAdapter(userListAdapter);
@@ -55,5 +51,10 @@ public class FragmentUsersList extends Fragment {
         return view;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<Friends> friendsList = MyApplication.getWritableDatabase().getFriendsList();
+        userListAdapter.newListData(friendsList);
+    }
 }

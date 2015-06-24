@@ -35,6 +35,23 @@ public class Info implements Parcelable {
         this.name = in.readString();
     }
 
+    public static Info getInfoFromJSONObject(JSONObject object) {
+        Info info = new Info();
+        try {
+            if (object.has(UrlLinksNames.getJsonUserId()))
+                info.setUser_id(object.getLong(UrlLinksNames.getJsonUserId()));
+            if (object.has(UrlLinksNames.getJsonName()))
+                info.setName(object.getString(UrlLinksNames.getJsonName()));
+            if (object.has(UrlLinksNames.getJsonGroupId()))
+                info.setGroup(object.getLong(UrlLinksNames.getJsonGroupId()));
+            if (object.has(UrlLinksNames.getJsonDate()))
+                info.setDate(object.getString(UrlLinksNames.getJsonDate()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return info;
+    }
+
     public long getSno() {
         return sno;
     }
@@ -85,23 +102,6 @@ public class Info implements Parcelable {
             e.printStackTrace();
         }
         return object;
-    }
-
-    public Info getInfoFromJSONObject(JSONObject object) {
-        Info info = new Info();
-        try {
-            if (object.has(UrlLinksNames.getJsonUserId()))
-                info.setUser_id(object.getLong(UrlLinksNames.getJsonUserId()));
-            if (object.has(UrlLinksNames.getJsonName()))
-                info.setName(object.getString(UrlLinksNames.getJsonName()));
-            if (object.has(UrlLinksNames.getJsonGroupId()))
-                info.setGroup(object.getLong(UrlLinksNames.getJsonGroupId()));
-            if (object.has(UrlLinksNames.getJsonDate()))
-                info.setDate(object.getString(UrlLinksNames.getJsonDate()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return info;
     }
 
     @Override

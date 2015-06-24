@@ -26,7 +26,7 @@ public class DBAskUrFrnd {
     private SQLiteDatabase database;
 
     public DBAskUrFrnd(Context context) {
-        Log.d("Database", "getting writable instance");
+        Log.d("Database", "creating writable instance");
         mySQLiteHelper = new MySQLiteHelper(context);
         database = mySQLiteHelper.getWritableDatabase();
     }
@@ -64,7 +64,7 @@ public class DBAskUrFrnd {
     public void insertQuestionSuggestions(List<Questions> list) {
 
         //create a sql prepared statement
-        String sql = "INSERT INTO " + getTableName(TABLE_SUGGESTIONS) + " VALUES (?,?,?,?,?,?,?,?,);";
+        String sql = "INSERT INTO " + getTableName(TABLE_SUGGESTIONS) + " VALUES (?,?,?,?,?,?,?);";
         //compile the statement and start a transaction
         SQLiteStatement statement = database.compileStatement(sql);
         database.beginTransaction();
@@ -169,7 +169,32 @@ public class DBAskUrFrnd {
         return list;
     }
 
-    public List<Friends> readFriendsList() {
+    public void insertFriendsList(List<Friends> list) {
+        //create a sql prepared statement
+        String sql = "INSERT INTO " + getTableName(TABLE_FRIENDS) + " VALUES (?,?,?,?,?,?);";
+        //compile the statement and start a transaction
+        SQLiteStatement statement = database.compileStatement(sql);
+        database.beginTransaction();
+        for (int i = 0; i < list.size(); i++) {
+            Friends current = list.get(i);
+            statement.clearBindings();
+            //for a given column index, simply bind the data to be put inside that index
+            statement.bindString(2, Long.toString(current.getId()));
+            statement.bindString(3, current.getName());
+            statement.bindString(4, current.getInstitution());
+            statement.bindString(5, current.getMail());
+            statement.bindString(6, current.getPhone());
+
+            statement.execute();
+        }
+
+        //set the transaction as successful and end the transaction
+        database.setTransactionSuccessful();
+        database.endTransaction();
+
+    }
+
+    public List<Friends> getFriendsList() {
         List<Friends> friendsList = new ArrayList<>();
         String[] columns = {
                 MySQLiteHelper.COLUMN_USER_ID,

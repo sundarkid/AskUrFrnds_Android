@@ -17,7 +17,6 @@ public class UrlLinksNames {
     public static final String URL_CHECK = "checkSql.php";
 
     public static final String JSON_USER_ID = "user_id";
-    public static final String JSON_NAME = "name";
     public static final String JSON_QUESTION_ID = "q_id";
     public static final String JSON_GROUP_ID = "group_no";
     public static final String JSON_QUESTION = "question";
@@ -28,12 +27,34 @@ public class UrlLinksNames {
     public static final String JSON_ANSWER = "answer";
     public static final String JSON_DATE = "date";
 
+    public static final String JSON_NAME = "name";
+    public static final String JSON_INSTITUTION = "institution";
+    public static final String JSON_MAIL = "mail";
+    public static final String JSON_PHONE = "phone";
+    public static final String JSON_REQUEST_ID = "request_id";
+
     public static String getJsonUserId() {
         return JSON_USER_ID;
     }
 
     public static String getJsonName() {
         return JSON_NAME;
+    }
+
+    public static String getJsonMail() {
+        return JSON_MAIL;
+    }
+
+    public static String getJsonPhone() {
+        return JSON_PHONE;
+    }
+
+    public static String getJsonRequestId() {
+        return JSON_REQUEST_ID;
+    }
+
+    public static String getJsonInstitution() {
+        return JSON_INSTITUTION;
     }
 
     public static String getJsonQuestionId() {

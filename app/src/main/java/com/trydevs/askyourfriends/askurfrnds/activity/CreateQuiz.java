@@ -213,12 +213,12 @@ public class CreateQuiz extends ActionBarActivity implements FragmentCreateQuizQ
         requestQueue.add(request);
     }
 
-    private void getQuestionFromServer(Info info) {
+    private void getQuestionFromServer(final Info infoData) {
         HashMap<String, String> params = new HashMap<>();
         params.put("user_id", Long.toString(user_id));
         params.put("unique_id", unique_id);
         params.put("name", name);
-        params.put("group_id", Long.toString(info.getGroup()));
+        params.put("group_id", Long.toString(infoData.getGroup()));
         CustomRequest request = new CustomRequest(POST, UrlLinksNames.getUrlDownloadQuiz(), params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -232,8 +232,10 @@ public class CreateQuiz extends ActionBarActivity implements FragmentCreateQuizQ
                             JSONObject object = jsonArray.getJSONObject(i);
                             list.add(Questions.getQuestionsFromJson(object));
                         }
-                        if (list.size() > 0)
+                        if (list.size() > 0) {
+                            MyApplication.getWritableDatabase().insertInfo(infoData);
                             MyApplication.getWritableDatabase().insertQuestions(list);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

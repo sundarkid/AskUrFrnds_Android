@@ -26,10 +26,10 @@ import static com.android.volley.Request.Method.POST;
 
 public class ForgotPasswordActivity extends ActionBarActivity {
 
+    private static RequestQueue requestQueue;
     Toolbar toolbar;
     EditText mail;
     Button send;
-    private static RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,7 @@ public class ForgotPasswordActivity extends ActionBarActivity {
                                         Toast.makeText(ForgotPasswordActivity.this, message, Toast.LENGTH_LONG).show();
                                     }
                                 } catch (JSONException e) {
+                                    String s = e.toString();
                                     e.printStackTrace();
                                 }
                             }

@@ -190,7 +190,6 @@ public class CreateQuiz extends ActionBarActivity implements FragmentCreateQuizQ
                             info.setUser_id(user_id);
                             info.setGroup(group);
                             info.setDate(date);
-                            // TODO get questions and add them to the database
                             getQuestionFromServer(info);
                             Toast.makeText(CreateQuiz.this, "Sent", Toast.LENGTH_SHORT).show();
 
@@ -215,7 +214,6 @@ public class CreateQuiz extends ActionBarActivity implements FragmentCreateQuizQ
     }
 
     private void getQuestionFromServer(Info info) {
-        // TODO get questions and add them to the database
         HashMap<String, String> params = new HashMap<>();
         params.put("user_id", Long.toString(user_id));
         params.put("unique_id", unique_id);

@@ -47,20 +47,20 @@ public class Questions implements Parcelable {
     public static Questions getQuestionsFromJson(JSONObject object) {
         Questions questions = new Questions();
         try {
-            if (object.has("q_no"))
-                questions.setId(object.getLong("q_no"));
-            if (object.has("group_no"))
-                questions.setGroup(object.getLong("group_no"));
-            if (object.has("question"))
-                questions.setQuestion(object.getString("question"));
-            if (object.has("optionA"))
-                questions.setOptionA(object.getString("optionA"));
-            if (object.has("optionB"))
-                questions.setOptionB(object.getString("optionB"));
-            if (object.has("optionC"))
-                questions.setOptionC(object.getString("optionC"));
-            if (object.has("optionD"))
-                questions.setOptionD(object.getString("optionD"));
+            if (object.has(UrlLinksNames.getJsonQuestionId()))
+                questions.setId(object.getLong(UrlLinksNames.getJsonQuestionId()));
+            if (object.has(UrlLinksNames.getJsonGroupId()))
+                questions.setGroup(object.getLong(UrlLinksNames.getJsonGroupId()));
+            if (object.has(UrlLinksNames.getJsonQuestion()))
+                questions.setQuestion(object.getString(UrlLinksNames.getJsonQuestion()));
+            if (object.has(UrlLinksNames.getJsonOptionA()))
+                questions.setOptionA(object.getString(UrlLinksNames.getJsonOptionA()));
+            if (object.has(UrlLinksNames.getJsonOptionB()))
+                questions.setOptionB(object.getString(UrlLinksNames.getJsonOptionB()));
+            if (object.has(UrlLinksNames.getJsonOptionC()))
+                questions.setOptionC(object.getString(UrlLinksNames.getJsonOptionC()));
+            if (object.has(UrlLinksNames.getJsonOptionD()))
+                questions.setOptionD(object.getString(UrlLinksNames.getJsonOptionD()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -151,12 +151,13 @@ public class Questions implements Parcelable {
     public JSONObject getJSONObjectQuestion() {
         JSONObject object = new JSONObject();
         try {
-            object.put("question", getQuestion());
-            object.put("optionA", getOptionA());
-            object.put("optionB", getOptionB());
-            object.put("optionC", getOptionC());
-            object.put("optionD", getOptionD());
-            object.put("answer", getAnswer());
+            object.put(UrlLinksNames.getJsonQuestionId(), getQ_id());
+            object.put(UrlLinksNames.getJsonQuestion(), getQuestion());
+            object.put(UrlLinksNames.getJsonOptionA(), getOptionA());
+            object.put(UrlLinksNames.getJsonOptionB(), getOptionB());
+            object.put(UrlLinksNames.getJsonOptionC(), getOptionC());
+            object.put(UrlLinksNames.getJsonOptionD(), getOptionD());
+            object.put(UrlLinksNames.getJsonAnswer(), getAnswer());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -166,8 +167,8 @@ public class Questions implements Parcelable {
     public JSONObject getJSONObjectAnswers() {
         JSONObject object = new JSONObject();
         try {
-            object.put("id_no", getId());
-            object.put("answer", getAnswer());
+            object.put(UrlLinksNames.getJsonQuestionId(), getId());
+            object.put(UrlLinksNames.getJsonAnswer(), getAnswer());
         } catch (JSONException e) {
             e.printStackTrace();
         }

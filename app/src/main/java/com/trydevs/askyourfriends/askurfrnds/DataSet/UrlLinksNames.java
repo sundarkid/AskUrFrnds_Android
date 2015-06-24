@@ -16,6 +16,66 @@ public class UrlLinksNames {
     public static final String URL_GET_PEOPLE_LIST = "getPeopleList.php";
     public static final String URL_CHECK = "checkSql.php";
 
+    public static final String JSON_USER_ID = "user_id";
+    public static final String JSON_NAME = "name";
+    public static final String JSON_QUESTION_ID = "q_id";
+    public static final String JSON_GROUP_ID = "group_no";
+    public static final String JSON_QUESTION = "question";
+    public static final String JSON_OPTION_A = "optionA";
+    public static final String JSON_OPTION_B = "optionB";
+    public static final String JSON_OPTION_C = "optionC";
+    public static final String JSON_OPTION_D = "optionD";
+    public static final String JSON_ANSWER = "answer";
+    public static final String JSON_DATE = "date";
+
+    public static String getJsonUserId() {
+        return JSON_USER_ID;
+    }
+
+    public static String getJsonName() {
+        return JSON_NAME;
+    }
+
+    public static String getJsonQuestionId() {
+        return JSON_QUESTION_ID;
+    }
+
+    public static String getJsonGroupId() {
+        return JSON_GROUP_ID;
+    }
+
+    public static String getJsonQuestion() {
+        return JSON_QUESTION;
+    }
+
+    public static String getJsonOptionA() {
+        return JSON_OPTION_A;
+    }
+
+    public static String getJsonOptionB() {
+        return JSON_OPTION_B;
+    }
+
+    public static String getJsonOptionC() {
+        return JSON_OPTION_C;
+    }
+
+    public static String getJsonOptionD() {
+        return JSON_OPTION_D;
+    }
+
+    public static String getJsonAnswer() {
+        return JSON_ANSWER;
+    }
+
+    public static String getJsonDate() {
+        return JSON_DATE;
+    }
+
+    public static String getUrlBase() {
+        return URL_BASE;
+    }
+
     public static String getUrlDownloadQuiz() {
         return URL_BASE + URL_DOWNLOAD_QUIZ;
     }

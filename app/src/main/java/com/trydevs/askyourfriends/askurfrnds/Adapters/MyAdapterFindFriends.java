@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -29,9 +30,7 @@ import java.util.List;
 
 import static com.android.volley.Request.Method.POST;
 
-/**
- * Created by Sundareswaran on 18-06-2015.
- */
+
 public class MyAdapterFindFriends extends RecyclerView.Adapter<MyAdapterFindFriends.MyViewHolder> {
 
     LayoutInflater inflater;
@@ -129,10 +128,14 @@ public class MyAdapterFindFriends extends RecyclerView.Adapter<MyAdapterFindFrie
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.d("error", error.toString());
+                    String s = error.toString();
                     String message = context.getResources().getString(R.string.forgot_password_error) + "\n(or)" + context.getResources().getString(R.string.loginErrorMessage);
                     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                 }
             });
+            request.setRetryPolicy(new DefaultRetryPolicy(5000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             requestQueue.add(request);
         }
     }

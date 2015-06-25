@@ -13,6 +13,7 @@ import com.trydevs.askyourfriends.askurfrnds.DataSet.Info;
 import com.trydevs.askyourfriends.askurfrnds.R;
 import com.trydevs.askyourfriends.askurfrnds.activity.QuizActivity;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class MyAdapterViewQuizList extends RecyclerView.Adapter<MyAdapterViewQui
     public void newListData(List<Info> list) {
         if (data.size() > 0)
             data.clear();
+        data = new ArrayList<>();
         data.addAll(list);
         notifyDataSetChanged();
     }

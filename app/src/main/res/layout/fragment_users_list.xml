@@ -12,11 +12,15 @@
         android:layout_gravity="center"
         android:text="@string/no_friends" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewUserList"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewUserList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </FrameLayout>

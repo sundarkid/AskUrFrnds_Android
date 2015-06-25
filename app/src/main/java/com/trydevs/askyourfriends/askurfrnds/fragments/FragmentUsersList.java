@@ -27,6 +27,7 @@ public class FragmentUsersList extends Fragment {
     RecyclerView recyclerView;
     MyAdapterUserList userListAdapter;
     List<Friends> list;
+    int check = 0;
     private int SPACES_BETWEEN_ITEMS = 2;
 
     public FragmentUsersList() {
@@ -47,14 +48,16 @@ public class FragmentUsersList extends Fragment {
         recyclerView.setAdapter(userListAdapter);
         recyclerView.addItemDecoration(new SpacesItemDecoration(SPACES_BETWEEN_ITEMS));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        check = 1;
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        List<Friends> friendsList = MyApplication.getWritableDatabase().getFriendsList();
-        userListAdapter.newListData(friendsList);
+        if (check == 1) {
+            List<Friends> friendsList = MyApplication.getWritableDatabase().getFriendsList();
+            userListAdapter.newListData(friendsList);
+        }
     }
 }

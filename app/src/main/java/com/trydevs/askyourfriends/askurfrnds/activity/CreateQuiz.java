@@ -235,6 +235,7 @@ public class CreateQuiz extends ActionBarActivity implements FragmentCreateQuizQ
                         if (list.size() > 0) {
                             MyApplication.getWritableDatabase().insertInfo(infoData);
                             MyApplication.getWritableDatabase().insertQuestions(list);
+                            finish();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

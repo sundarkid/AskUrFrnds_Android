@@ -2,18 +2,15 @@ package com.trydevs.askyourfriends.askurfrnds.services;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
+import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.android.volley.toolbox.RequestFuture;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Info;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Questions;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.UrlLinksNames;
 import com.trydevs.askyourfriends.askurfrnds.Network.CustomRequest;
 import com.trydevs.askyourfriends.askurfrnds.Network.VolleySingleton;
-import com.trydevs.askyourfriends.askurfrnds.R;
 import com.trydevs.askyourfriends.askurfrnds.extras.MyApplication;
 
 import org.json.JSONArray;
@@ -23,6 +20,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import me.tatarka.support.job.JobParameters;
 import me.tatarka.support.job.JobService;
@@ -35,7 +35,7 @@ public class MyServiceChecker extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
-        //Toast.makeText(this, "onstart job", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onstart job", Toast.LENGTH_SHORT).show();
         new CheckServer(this).execute(jobParameters);
         return false;
     }
@@ -74,6 +74,7 @@ public class MyServiceChecker extends JobService {
 
         @Override
         protected JobParameters doInBackground(JobParameters... jobParameterses) {
+            getDataFromServer();
             return jobParameterses[0];
         }
 
@@ -82,31 +83,34 @@ public class MyServiceChecker extends JobService {
             myServiceChecker.jobFinished(jobParameters, false);
         }
 
-        private void getQuestionFromServer(Info info) {
-            CustomRequest request = new CustomRequest(POST, UrlLinksNames.getUrlDownloadQuiz(), params, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    if (response.has("result")) {
-                        try {
-                            if (response.getString("result").equalsIgnoreCase("success")) {
-                                decodeData(response);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+        private void getDataFromServer() {
+
+            RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
+
+            CustomRequest request = new CustomRequest(POST, UrlLinksNames.getUrlDownloadQuiz(), params, requestFuture, requestFuture);
+            requestQueue.add(request);
+
+            JSONObject response = null;
+            try {
+                response = requestFuture.get(30, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (TimeoutException e) {
+                e.printStackTrace();
+            }
+            if (response != null)
+                if (response.has("result")) {
+                    try {
+                        Toast.makeText(myServiceChecker.getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+                        if (response.getString("result").equalsIgnoreCase("success")) {
+                            decodeData(response);
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("error", error.toString());
-                    String message = myServiceChecker.getResources().getString(R.string.forgot_password_error) + "\n" + myServiceChecker.getResources().getString(R.string.loginErrorMessage);
-                }
-            });
-            request.setRetryPolicy(new DefaultRetryPolicy(5000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            requestQueue.add(request);
         }
 
         private void decodeData(JSONObject response) {
@@ -141,5 +145,7 @@ public class MyServiceChecker extends JobService {
                 }
             }
         }
+
     }
+
 }

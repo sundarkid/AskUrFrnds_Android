@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.UrlLinksNames;
@@ -56,6 +55,7 @@ public class MainActivity extends ActionBarActivity {
         loginDetails = getSharedPreferences(UrlLinksNames.getLoginFileName(), 0);
         user_id = loginDetails.getInt("user_id", 0);
         unique_id = loginDetails.getString("unique_id", "");
+
         // Checking for discrepency
         if (user_id == 0 || unique_id.equals("")) {
             Intent intent = new Intent(this, LoginActivity.class);
@@ -91,12 +91,10 @@ public class MainActivity extends ActionBarActivity {
                 switch (viewPager.getCurrentItem()) {
                     case 0:
                         viewPager.setCurrentItem(FRIENDS, true);
-                        Toast.makeText(MainActivity.this, getResources().getString(R.string.select_friend), Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
                         Intent intent = new Intent(MainActivity.this, AddFriendsActivity.class);
                         startActivity(intent);
-                        Toast.makeText(MainActivity.this, "Still working on finding friends.", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }

@@ -5,12 +5,14 @@ public class UrlLinksNames {
     public static final String URL_BASE = "http://askyourfriend.in/";
     public static final String URL_ADD_FRIENDS = "addFriends.php";
     public static final String URL_FRIEND_REQUESTS = "getFriendRequestList.php";
+    public static final String URL_FRIEND_LIST = "getFriendsList.php";
     public static final String URL_CONFIRM_FRIENDS = "confirmFriends.php";
     public static final String URL_REMOVE_FRIENDS = "removeFriends.php";
     public static final String URL_SIGNUP = "signup.php";
     public static final String URL_LOGIN = "login.php";
     public static final String URL_UPLOAD_QUIZ = "uploadQuiz.php";
     public static final String URL_DOWNLOAD_QUIZ = "getQuestions.php";
+    public static final String URL_QUIZ_RESULT = "getResult.php";
     public static final String LOGIN_FILE_NAME = "login_detail";
     public static final String URL_FORGOT_PASSWORD = "forgotPassword.php";
     public static final String URL_GET_PEOPLE_LIST = "getPeopleList.php";
@@ -97,12 +99,20 @@ public class UrlLinksNames {
         return URL_BASE;
     }
 
+    public static String getUrlFriendList() {
+        return URL_BASE + URL_FRIEND_LIST;
+    }
+
     public static String getUrlDownloadQuiz() {
         return URL_BASE + URL_DOWNLOAD_QUIZ;
     }
 
     public static String getUrlAddFriends() {
         return URL_BASE + URL_ADD_FRIENDS;
+    }
+
+    public static String getUrlQuizResult() {
+        return URL_BASE + URL_QUIZ_RESULT;
     }
 
     public static String getUrlConfirmFriends() {

@@ -19,10 +19,12 @@ import com.trydevs.askyourfriends.askurfrnds.DataSet.UrlLinksNames;
 import com.trydevs.askyourfriends.askurfrnds.Network.CustomRequest;
 import com.trydevs.askyourfriends.askurfrnds.Network.VolleySingleton;
 import com.trydevs.askyourfriends.askurfrnds.R;
+import com.trydevs.askyourfriends.askurfrnds.extras.MyApplication;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -102,12 +104,18 @@ public class MyAdapterRequest extends RecyclerView.Adapter<MyAdapterRequest.MyVi
             params.put("name", name);
             params.put("reciever_id", Long.toString(data.get(getAdapterPosition()).getId()));
             params.put("request_id", data.get(getAdapterPosition()).getRequest_id());
-            CustomRequest request = new CustomRequest(POST, UrlLinksNames.getUrlConfirmFriends(), params, new Response.Listener<JSONObject>() {
+            final CustomRequest request = new CustomRequest(POST, UrlLinksNames.getUrlConfirmFriends(), params, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     if (response.has("result")) {
                         try {
-                            Toast.makeText(context, response.getString("result"), Toast.LENGTH_SHORT).show();
+                            if (response.getString("result").equalsIgnoreCase("success")) {
+                                String s = response.getString("friend");
+                                JSONObject object = new JSONObject(s);
+                                List<Friends> f = new ArrayList<>();
+                                f.add(Friends.getFriendsFromJSONObject(object));
+                                MyApplication.getWritableDatabase().insertFriendsList(f);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

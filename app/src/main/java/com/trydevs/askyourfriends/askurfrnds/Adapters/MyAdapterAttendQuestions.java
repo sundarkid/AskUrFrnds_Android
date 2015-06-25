@@ -52,7 +52,7 @@ public class MyAdapterAttendQuestions extends RecyclerView.Adapter<MyAdapterAtte
         return data.size();
     }
 
-    public JSONArray getAnswer() {
+    public JSONArray getAnswerJsonArray() {
         JSONArray array = new JSONArray();
         for (int i = 0; i < data.size(); i++) {
             array.put(data.get(i).getJSONObjectAnswers());

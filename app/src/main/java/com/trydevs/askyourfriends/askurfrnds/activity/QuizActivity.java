@@ -117,8 +117,10 @@ public class QuizActivity extends ActionBarActivity {
                     }
                 });
                 Log.d("json", adapterMyQuestions.getAnswerJsonArray().toString());
+                requestQueue.add(request);
             }
         });
+
     }
 
 

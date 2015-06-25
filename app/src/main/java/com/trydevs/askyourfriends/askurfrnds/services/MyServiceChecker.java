@@ -1,5 +1,6 @@
 package com.trydevs.askyourfriends.askurfrnds.services;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ public class MyServiceChecker extends JobService {
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
         Toast.makeText(this, "onstart job", Toast.LENGTH_SHORT).show();
-        new CheckServer(this).execute(jobParameters);
+        new CheckServer(this, this).execute(jobParameters);
         return false;
     }
 
@@ -48,14 +49,17 @@ public class MyServiceChecker extends JobService {
     private static class CheckServer extends AsyncTask<JobParameters, Void, JobParameters> {
 
         MyServiceChecker myServiceChecker;
+        Context context;
         SharedPreferences loginDetails;
         String unique_id, name;
         long user_id;
         HashMap<String, String> params = new HashMap<>();
+        JSONObject response = null;
         private RequestQueue requestQueue;
 
-        CheckServer(MyServiceChecker myServiceChecker) {
+        CheckServer(MyServiceChecker myServiceChecker, Context context) {
             this.myServiceChecker = myServiceChecker;
+            this.context = context;
         }
 
         @Override
@@ -87,10 +91,9 @@ public class MyServiceChecker extends JobService {
 
             RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
 
-            CustomRequest request = new CustomRequest(POST, UrlLinksNames.getUrlDownloadQuiz(), params, requestFuture, requestFuture);
+            CustomRequest request = new CustomRequest(POST, UrlLinksNames.getUrlGetNewInfo(), params, requestFuture, requestFuture);
             requestQueue.add(request);
 
-            JSONObject response = null;
             try {
                 response = requestFuture.get(30, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
@@ -103,9 +106,11 @@ public class MyServiceChecker extends JobService {
             if (response != null)
                 if (response.has("result")) {
                     try {
-                        Toast.makeText(myServiceChecker.getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
                         if (response.getString("result").equalsIgnoreCase("success")) {
                             decodeData(response);
+                        } else {
+                            //Toast.makeText(context,"result failure",Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

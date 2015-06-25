@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         check();
         initialize();
-        // constructJob();
+        constructJob();
     }
 
     private void check() {
@@ -103,7 +103,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void constructJob() {
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, MyServiceChecker.class));
-        long time = 30 * 60;
+        long time = 10000;
         builder.setPeriodic(time)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setPersisted(true);

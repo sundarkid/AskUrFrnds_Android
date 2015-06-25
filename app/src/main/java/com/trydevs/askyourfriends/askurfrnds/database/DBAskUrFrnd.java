@@ -170,6 +170,7 @@ public class DBAskUrFrnd {
     }
 
     public void insertFriendsList(List<Friends> list) {
+        database.delete(getTableName(TABLE_FRIENDS), null, null);
         //create a sql prepared statement
         String sql = "INSERT INTO " + getTableName(TABLE_FRIENDS) + " VALUES (?,?,?,?,?,?);";
         //compile the statement and start a transaction

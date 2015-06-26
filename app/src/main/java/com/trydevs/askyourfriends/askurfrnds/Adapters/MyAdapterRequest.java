@@ -62,18 +62,24 @@ public class MyAdapterRequest extends RecyclerView.Adapter<MyAdapterRequest.MyVi
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = inflater.inflate(R.layout.custom_row_user, viewGroup, false);
+        View view = inflater.inflate(R.layout.custom_row_find_friends, viewGroup, false);
         return (new MyViewHolder(view));
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        myViewHolder.textView.setText(data.get(i).getName());
+        myViewHolder.textViewName.setText(data.get(i).getName());
+        myViewHolder.textViewInstitution.setText(data.get(i).getInstitution());
     }
 
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public void deleteView(int position) {
+        data.remove(position);
+        notifyItemRemoved(position);
     }
 
     public void updateData(List<Friends> data) {
@@ -86,13 +92,14 @@ public class MyAdapterRequest extends RecyclerView.Adapter<MyAdapterRequest.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView textView;
+        TextView textViewName, textViewInstitution;
         ImageView imageView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.textViewCustomRow);
-            imageView = (ImageView) itemView.findViewById(R.id.imageViewCustomRow);
+            textViewName = (TextView) itemView.findViewById(R.id.textViewFindFriendsName);
+            textViewInstitution = (TextView) itemView.findViewById(R.id.textViewFindFriendsInstitution);
+            imageView = (ImageView) itemView.findViewById(R.id.imageViewFindFriends);
             itemView.setOnClickListener(this);
         }
 
@@ -102,7 +109,7 @@ public class MyAdapterRequest extends RecyclerView.Adapter<MyAdapterRequest.MyVi
             params.put("sender_id", Long.toString(user_id));
             params.put("unique_id", unique_id);
             params.put("name", name);
-            params.put("reciever_id", Long.toString(data.get(getAdapterPosition()).getId()));
+            params.put("reciever_id", Long.toString(user_id));
             params.put("request_id", data.get(getAdapterPosition()).getRequest_id());
             final CustomRequest request = new CustomRequest(POST, UrlLinksNames.getUrlConfirmFriends(), params, new Response.Listener<JSONObject>() {
                 @Override
@@ -115,6 +122,7 @@ public class MyAdapterRequest extends RecyclerView.Adapter<MyAdapterRequest.MyVi
                                 List<Friends> f = new ArrayList<>();
                                 f.add(Friends.getFriendsFromJSONObject(object));
                                 MyApplication.getWritableDatabase().insertFriendsList(f);
+                                deleteView(getAdapterPosition());
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

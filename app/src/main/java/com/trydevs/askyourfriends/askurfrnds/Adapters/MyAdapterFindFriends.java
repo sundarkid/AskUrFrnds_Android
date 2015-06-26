@@ -63,17 +63,17 @@ public class MyAdapterFindFriends extends RecyclerView.Adapter<MyAdapterFindFrie
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = inflater.inflate(R.layout.custom_row_user, viewGroup, false);
+        View view = inflater.inflate(R.layout.custom_row_find_friends, viewGroup, false);
         return (new MyViewHolder(view));
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        if (i < data.size())
-            myViewHolder.textView.setText(data.get(i).getName());
-        else {
-            myViewHolder.textView.setText("Loading more data");
-            loader.loadMore();
+        if (i < data.size()) {
+            myViewHolder.textViewName.setText(data.get(i).getName());
+            myViewHolder.textViewInstitution.setText(data.get(i).getInstitution());
+        } else {
+            myViewHolder.textViewName.setText("Load more data");
         }
     }
 
@@ -96,47 +96,52 @@ public class MyAdapterFindFriends extends RecyclerView.Adapter<MyAdapterFindFrie
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView textView;
+        TextView textViewName, textViewInstitution;
         ImageView imageView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.textViewCustomRow);
+            textViewName = (TextView) itemView.findViewById(R.id.textViewFindFriendsName);
+            textViewInstitution = (TextView) itemView.findViewById(R.id.textViewFindFriendsInstitution);
             imageView = (ImageView) itemView.findViewById(R.id.imageViewCustomRow);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            HashMap<String, String> params = new HashMap<>();
-            params.put("sender_id", Long.toString(user_id));
-            params.put("unique_id", unique_id);
-            params.put("name", name);
-            params.put("reciever_id", Long.toString(data.get(getAdapterPosition()).getId()));
-            CustomRequest request = new CustomRequest(POST, UrlLinksNames.getUrlAddFriends(), params, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    if (response.has("result")) {
-                        try {
-                            Toast.makeText(context, response.getString("result"), Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+            if (getAdapterPosition() == getItemCount() - 1) {
+                loader.loadMore();
+            } else {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("sender_id", Long.toString(user_id));
+                params.put("unique_id", unique_id);
+                params.put("name", name);
+                params.put("reciever_id", Long.toString(data.get(getAdapterPosition()).getId()));
+                CustomRequest request = new CustomRequest(POST, UrlLinksNames.getUrlAddFriends(), params, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if (response.has("result")) {
+                            try {
+                                Toast.makeText(context, response.getString("result"), Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("error", error.toString());
-                    String s = error.toString();
-                    String message = context.getResources().getString(R.string.forgot_password_error) + "\n(or)" + context.getResources().getString(R.string.loginErrorMessage);
-                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-                }
-            });
-            request.setRetryPolicy(new DefaultRetryPolicy(5000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            requestQueue.add(request);
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("error", error.toString());
+                        String s = error.toString();
+                        String message = context.getResources().getString(R.string.forgot_password_error) + "\n(or)" + context.getResources().getString(R.string.loginErrorMessage);
+                        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                    }
+                });
+                request.setRetryPolicy(new DefaultRetryPolicy(5000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                requestQueue.add(request);
+            }
         }
     }
 }

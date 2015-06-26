@@ -29,6 +29,12 @@ public class DBAskUrFrnd {
         Log.d("Database", "creating writable instance");
         mySQLiteHelper = new MySQLiteHelper(context);
         database = mySQLiteHelper.getWritableDatabase();
+
+    }
+
+    public void deleteAllTableData() {
+        for (int i = 0; i < 5; i++)
+            database.delete(getTableName(i), null, null);
     }
 
     public void insertQuestions(List<Questions> list) {
@@ -128,12 +134,8 @@ public class DBAskUrFrnd {
     }
 
     public List<Questions> readAllQuestions(int table) {
-        List<Questions> list = new ArrayList<>();
+        List<Questions> list = Collections.emptyList();
         String[] columns = {
-                MySQLiteHelper.COLUMN_SNO,
-                MySQLiteHelper.COLUMN_QUESTION_ID,
-                MySQLiteHelper.COLUMN_USER_ID,
-                MySQLiteHelper.COLUMN_GROUP,
                 MySQLiteHelper.COLUMN_QUESTION,
                 MySQLiteHelper.COLUMN_OPTION_A,
                 MySQLiteHelper.COLUMN_OPTION_B,
@@ -144,9 +146,7 @@ public class DBAskUrFrnd {
 
         Cursor cursor = database.query(getTableName(table), columns, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
-            int index_Q_id = cursor.getColumnIndex(MySQLiteHelper.COLUMN_QUESTION_ID);
-            int index_id = cursor.getColumnIndex(MySQLiteHelper.COLUMN_USER_ID);
-            int index_group = cursor.getColumnIndex(MySQLiteHelper.COLUMN_GROUP);
+            list = new ArrayList<>();
             int index_question = cursor.getColumnIndex(MySQLiteHelper.COLUMN_QUESTION);
             int index_optionA = cursor.getColumnIndex(MySQLiteHelper.COLUMN_OPTION_A);
             int index_optionB = cursor.getColumnIndex(MySQLiteHelper.COLUMN_OPTION_B);
@@ -154,9 +154,6 @@ public class DBAskUrFrnd {
             int index_optionD = cursor.getColumnIndex(MySQLiteHelper.COLUMN_OPTION_D);
             do {
                 Questions questions = new Questions();
-                questions.setQ_id(cursor.getLong(index_Q_id));
-                questions.setId(cursor.getLong(index_id));
-                questions.setGroup(cursor.getLong(index_group));
                 questions.setQuestion(cursor.getString(index_question));
                 questions.setOptionA(cursor.getString(index_optionA));
                 questions.setOptionB(cursor.getString(index_optionB));

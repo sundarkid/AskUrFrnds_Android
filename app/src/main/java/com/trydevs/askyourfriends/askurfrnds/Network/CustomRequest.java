@@ -1,7 +1,6 @@
 package com.trydevs.askyourfriends.askurfrnds.Network;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -10,7 +9,6 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.trydevs.askyourfriends.askurfrnds.extras.MyApplication;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +56,6 @@ public class CustomRequest extends Request<JSONObject> {
             return Response.error(new ParseError(e));
         } catch (JSONException je) {
             Log.d("exception ", je.toString());
-            Toast.makeText(MyApplication.getAppContext(), je.toString(), Toast.LENGTH_LONG).show();
             return Response.error(new ParseError(je));
         }
     }

@@ -17,6 +17,7 @@ import android.view.View;
 import com.github.clans.fab.FloatingActionButton;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.UrlLinksNames;
 import com.trydevs.askyourfriends.askurfrnds.R;
+import com.trydevs.askyourfriends.askurfrnds.extras.MyApplication;
 import com.trydevs.askyourfriends.askurfrnds.fragments.FragmentUsersList;
 import com.trydevs.askyourfriends.askurfrnds.fragments.FragmentViewQuizList;
 import com.trydevs.askyourfriends.askurfrnds.services.MyServiceChecker;
@@ -45,12 +46,13 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        check();
-        initialize();
-        constructJob();
+        if (check()) {
+            initialize();
+            constructJob();
+        }
     }
 
-    private void check() {
+    private boolean check() {
         // getting Logged in data
         loginDetails = getSharedPreferences(UrlLinksNames.getLoginFileName(), 0);
         user_id = loginDetails.getInt("user_id", 0);
@@ -61,7 +63,9 @@ public class MainActivity extends ActionBarActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
+            return false;
         }
+        return true;
     }
 
     private void initialize() {
@@ -103,7 +107,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void constructJob() {
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, MyServiceChecker.class));
-        long time = 10000;
+        long time = 1000 * 60 * 2;
         builder.setPeriodic(time)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setPersisted(true);
@@ -129,6 +133,7 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_logout:
                 SharedPreferences.Editor editor = loginDetails.edit();
                 editor.clear();
+                MyApplication.getWritableDatabase().deleteAllTableData();
                 Intent intent3 = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent3);
                 finish();

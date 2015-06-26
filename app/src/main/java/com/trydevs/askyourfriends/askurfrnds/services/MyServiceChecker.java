@@ -3,7 +3,6 @@ package com.trydevs.askyourfriends.askurfrnds.services;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.RequestFuture;
@@ -36,7 +35,6 @@ public class MyServiceChecker extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
-        Toast.makeText(this, "onstart job", Toast.LENGTH_SHORT).show();
         new CheckServer(this, this).execute(jobParameters);
         return false;
     }
@@ -84,6 +82,16 @@ public class MyServiceChecker extends JobService {
 
         @Override
         protected void onPostExecute(JobParameters jobParameters) {
+            if (response != null)
+                if (response.has("result")) {
+                    try {
+                        if (response.getString("result").equalsIgnoreCase("success")) {
+                            decodeData(response);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             myServiceChecker.jobFinished(jobParameters, false);
         }
 
@@ -103,21 +111,8 @@ public class MyServiceChecker extends JobService {
             } catch (TimeoutException e) {
                 e.printStackTrace();
             }
-            if (response != null)
-                if (response.has("result")) {
-                    try {
-                        //Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
-                        if (response.getString("result").equalsIgnoreCase("success")) {
-                            decodeData(response);
-                        } else {
-                            //Toast.makeText(context,"result failure",Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-        }
 
+        }
         private void decodeData(JSONObject response) {
             if (response.has("list")) {
                 try {
@@ -150,6 +145,7 @@ public class MyServiceChecker extends JobService {
                 }
             }
         }
+
 
     }
 

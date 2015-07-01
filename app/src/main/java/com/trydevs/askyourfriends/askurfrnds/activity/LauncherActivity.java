@@ -14,19 +14,9 @@ public class LauncherActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Intent intent = new Intent(LauncherActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }).start();
+        Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
 
     }
 

@@ -102,6 +102,8 @@ public class FragmentFindFriends extends Fragment {
                 if (response.has("result"))
                     try {
                         if (response.getString("result").equalsIgnoreCase("success")) {
+                            if (response.getString("list").equalsIgnoreCase("null"))
+                                Toast.makeText(getActivity(), "No more data", Toast.LENGTH_LONG).show();
                             List<Friends> friendsList = new ArrayList<>();
                             try {
                                 String s = response.getString("list");

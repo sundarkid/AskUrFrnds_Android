@@ -30,6 +30,12 @@ public class UrlLinksNames {
     public static final String JSON_ANSWER = "answer";
     public static final String JSON_DATE = "date";
 
+    public static final String JSON_SNO = "sno";
+    public static final String JSON_TAKER_ID = "taker_id";
+    public static final String JSON_CREATOR_ID = "creator_id";
+    public static final String JSON_MARKS = "marks";
+    public static final String JSON_TOTAL = "total";
+
     public static final String JSON_NAME = "name";
     public static final String JSON_INSTITUTION = "institution";
     public static final String JSON_MAIL = "mail";
@@ -50,6 +56,26 @@ public class UrlLinksNames {
 
     public static String getJsonPhone() {
         return JSON_PHONE;
+    }
+
+    public static String getJsonCreatorId() {
+        return JSON_CREATOR_ID;
+    }
+
+    public static String getJsonMarks() {
+        return JSON_MARKS;
+    }
+
+    public static String getJsonSno() {
+        return JSON_SNO;
+    }
+
+    public static String getJsonTakerId() {
+        return JSON_TAKER_ID;
+    }
+
+    public static String getJsonTotal() {
+        return JSON_TOTAL;
     }
 
     public static String getJsonRequestId() {

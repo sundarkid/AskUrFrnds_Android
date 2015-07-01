@@ -138,6 +138,9 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intent3);
                 finish();
                 return true;
+            case R.id.action_result:
+                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

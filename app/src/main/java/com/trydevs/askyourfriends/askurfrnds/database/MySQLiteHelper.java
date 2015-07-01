@@ -17,7 +17,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_FRIENDS = "friends";
     public static final String TABLE_INFO = "info";
     public static final String TABLE_TEMP = "temp";
+    public static final String TABLE_RESULT = "result";
     public static final String COLUMN_SNO = "sno";
+    public static final String COLUMN_TAKER_ID = "taker_id";
+    public static final String COLUMN_CREATOR_ID = "creator_id";
     public static final String COLUMN_GROUP = "group_id";
     public static final String COLUMN_QUESTION = "question";
     public static final String COLUMN_OPTION_A = "optionA";
@@ -28,6 +31,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USER_ID = "user_id";
     public static final String COLUMN_QUESTION_ID = "question_id";
     public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_MARKS = "marks";
+    public static final String COLUMN_TOTAL = "total";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_INSTITUTION = "institution";
     public static final String COLUMN_PHONE = "phone";
@@ -72,6 +77,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             COLUMN_NAME + " TEXT, " +
             COLUMN_DATE + " TEXT" +
             ");";
+    private static final String CREATE_TABLE_RESULT = "CREATE TABLE " + TABLE_RESULT + " (" +
+            COLUMN_SNO + " INTEGER, " +
+            COLUMN_TAKER_ID + " INTEGER, " +
+            COLUMN_CREATOR_ID + " INTEGER, " +
+            COLUMN_GROUP + " INTEGER, " +
+            COLUMN_NAME + " TEXT, " +
+            COLUMN_MARKS + " INTEGER, " +
+            COLUMN_TOTAL + " INTEGER, " +
+            COLUMN_DATE + " TEXT" +
+            ");";
     private static final String CREATE_TABLE_FRIENDS = "CREATE TABLE " + TABLE_FRIENDS + " (" +
             COLUMN_SNO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_USER_ID + " INTEGER, " +
@@ -102,6 +117,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             Log.d("Table created", TABLE_QUESTIONS);
             sqLiteDatabase.execSQL(CREATE_TABLE_TEMP);
             Log.d("Table created", TABLE_TEMP);
+            sqLiteDatabase.execSQL(CREATE_TABLE_RESULT);
+            Log.d("Table created", TABLE_RESULT);
         } catch (SQLiteException exception) {
             Toast.makeText(context, exception.toString(), Toast.LENGTH_SHORT).show();
             Log.d("sql create exception", exception.toString());
@@ -116,6 +133,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(" DROP TABLE " + TABLE_INFO + " IF EXISTS;");
             sqLiteDatabase.execSQL(" DROP TABLE " + TABLE_QUESTIONS + " IF EXISTS;");
             sqLiteDatabase.execSQL(" DROP TABLE " + TABLE_TEMP + " IF EXISTS;");
+            sqLiteDatabase.execSQL(" DROP TABLE " + TABLE_SUGGESTIONS + " IF EXISTS;");
+            sqLiteDatabase.execSQL(" DROP TABLE " + TABLE_RESULT + " IF EXISTS;");
             onCreate(sqLiteDatabase);
         } catch (SQLiteException exception) {
             Toast.makeText(context, exception + "", Toast.LENGTH_SHORT).show();

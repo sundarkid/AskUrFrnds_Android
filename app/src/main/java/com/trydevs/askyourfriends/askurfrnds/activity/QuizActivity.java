@@ -20,6 +20,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.trydevs.askyourfriends.askurfrnds.Adapters.MyAdapterAttendQuestions;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Info;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Questions;
+import com.trydevs.askyourfriends.askurfrnds.DataSet.Result;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.UrlLinksNames;
 import com.trydevs.askyourfriends.askurfrnds.Network.CustomRequest;
 import com.trydevs.askyourfriends.askurfrnds.Network.VolleySingleton;
@@ -59,7 +60,8 @@ public class QuizActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             info = extras.getParcelable("info");
-            Toast.makeText(this, info.getName(), Toast.LENGTH_SHORT).show();
+            if (info != null)
+                Toast.makeText(this, info.getName(), Toast.LENGTH_SHORT).show();
         }
 
         initialize();
@@ -103,7 +105,14 @@ public class QuizActivity extends ActionBarActivity {
                         if (response.has("result")) {
                             try {
                                 if (response.getString("result").equalsIgnoreCase("success")) {
-                                    String s = response.toString();
+                                    if (response.has("result"))
+                                        if (response.getString("result").equalsIgnoreCase("success")) {
+                                            if (response.has("object")) {
+                                                String s = response.getString("object");
+                                                JSONObject object = new JSONObject(s);
+                                                Result.getResultFromJSON(object);
+                                            }
+                                        }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -113,7 +122,7 @@ public class QuizActivity extends ActionBarActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(QuizActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
                 Log.d("json", adapterMyQuestions.getAnswerJsonArray().toString());

@@ -44,7 +44,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:paddingLeft="16dp"
-                android:text="Medium Text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 

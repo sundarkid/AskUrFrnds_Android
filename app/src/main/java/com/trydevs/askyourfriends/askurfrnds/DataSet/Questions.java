@@ -48,7 +48,7 @@ public class Questions implements Parcelable {
         Questions questions = new Questions();
         try {
             if (object.has(UrlLinksNames.getJsonQuestionId()))
-                questions.setId(object.getLong(UrlLinksNames.getJsonQuestionId()));
+                questions.setQ_id(object.getLong(UrlLinksNames.getJsonQuestionId()));
             if (object.has(UrlLinksNames.getJsonGroupId()))
                 questions.setGroup(object.getLong(UrlLinksNames.getJsonGroupId()));
             if (object.has(UrlLinksNames.getJsonQuestion()))

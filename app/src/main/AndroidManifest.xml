@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.trydevs.askyourfriends.askurfrnds" >
 
+    <!-- Always required on all apis, needed to access the internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Always required on api < 21, needed to keep a wake lock while your job is running -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -33,20 +34,12 @@
         <activity
             android:name=".activity.QuizActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_quiz"
-            android:parentActivityName=".activity.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+            android:label="@string/title_activity_quiz">
         </activity>
         <activity
             android:name=".activity.CreateQuiz"
             android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_create_quiz"
-            android:parentActivityName=".activity.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+            android:label="@string/title_activity_create_quiz">
         </activity>
         <activity
             android:name=".activity.SignupActivity"
@@ -56,11 +49,7 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".activity.ForgotPasswordActivity"
-            android:label="@string/title_activity_forgot_password"
-            android:parentActivityName=".activity.LoginActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.LoginActivity" />
+            android:label="@string/title_activity_forgot_password">
         </activity>
 
         <service
@@ -70,11 +59,10 @@
 
         <activity
             android:name=".activity.AddFriendsActivity"
-            android:label="@string/title_activity_add_friends"
-            android:parentActivityName=".activity.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.trydevs.askyourfriends.askurfrnds.activity.MainActivity" />
+            android:label="@string/title_activity_add_friends"></activity>
+        <activity
+            android:name=".activity.ResultActivity"
+            android:label="@string/title_activity_result">
         </activity>
     </application>
 

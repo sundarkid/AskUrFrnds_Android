@@ -9,6 +9,7 @@ import android.util.Log;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Friends;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Info;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Questions;
+import com.trydevs.askyourfriends.askurfrnds.DataSet.Result;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +22,7 @@ public class DBAskUrFrnd {
     public static final int TABLE_INFO = 2;
     public static final int TABLE_TEMP = 3;
     public static final int TABLE_SUGGESTIONS = 4;
+    public static final int TABLE_RESULT = 5;
 
     private MySQLiteHelper mySQLiteHelper;
     private SQLiteDatabase database;
@@ -133,6 +135,34 @@ public class DBAskUrFrnd {
         database.endTransaction();
     }
 
+    public void insertResults(List<Result> results) {
+        //create a sql prepared statement
+        String sql = "INSERT INTO " + getTableName(TABLE_RESULT) + " VALUES (?,?,?,?,?,?,?,?);";
+        //compile the statement and start a transaction
+        SQLiteStatement statement = database.compileStatement(sql);
+        database.beginTransaction();
+        for (int i = 0; i < results.size(); i++) {
+            Result current = results.get(i);
+            statement.clearBindings();
+            //for a given column index, simply bind the data to be put inside that index
+            statement.bindString(1, Long.toString(current.getSno()));
+            statement.bindString(2, Long.toString(current.getTaker_id()));
+            statement.bindString(3, Long.toString(current.getCreator_id()));
+            statement.bindString(4, Long.toString(current.getGroup_no()));
+            statement.bindString(5, current.getName());
+            statement.bindString(6, Integer.toString(current.getMarks()));
+            statement.bindString(7, Integer.toString(current.getTotal()));
+            statement.bindString(8, current.getDate());
+
+            statement.execute();
+        }
+
+        //set the transaction as successful and end the transaction
+        database.setTransactionSuccessful();
+        database.endTransaction();
+
+    }
+
     public List<Questions> readAllQuestions(int table) {
         List<Questions> list = Collections.emptyList();
         String[] columns = {
@@ -190,6 +220,47 @@ public class DBAskUrFrnd {
         database.setTransactionSuccessful();
         database.endTransaction();
 
+    }
+
+    public List<Result> getResultList() {
+        List<Result> results;
+        String[] columns = {
+                MySQLiteHelper.COLUMN_SNO,
+                MySQLiteHelper.COLUMN_TAKER_ID,
+                MySQLiteHelper.COLUMN_CREATOR_ID,
+                MySQLiteHelper.COLUMN_GROUP,
+                MySQLiteHelper.COLUMN_NAME,
+                MySQLiteHelper.COLUMN_MARKS,
+                MySQLiteHelper.COLUMN_TOTAL,
+                MySQLiteHelper.COLUMN_DATE
+        };
+        Cursor cursor = database.query(getTableName(TABLE_FRIENDS), columns, null, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int index_sno = cursor.getColumnIndex(MySQLiteHelper.COLUMN_SNO);
+            int index_takerId = cursor.getColumnIndex(MySQLiteHelper.COLUMN_TAKER_ID);
+            int index_creatorId = cursor.getColumnIndex(MySQLiteHelper.COLUMN_CREATOR_ID);
+            int index_group = cursor.getColumnIndex(MySQLiteHelper.COLUMN_GROUP);
+            int index_name = cursor.getColumnIndex(MySQLiteHelper.COLUMN_NAME);
+            int index_marks = cursor.getColumnIndex(MySQLiteHelper.COLUMN_MARKS);
+            int index_total = cursor.getColumnIndex(MySQLiteHelper.COLUMN_TOTAL);
+            int index_date = cursor.getColumnIndex(MySQLiteHelper.COLUMN_DATE);
+            results = new ArrayList<>();
+            do {
+                Result result = new Result();
+                result.setSno(cursor.getLong(index_sno));
+                result.setTaker_id(cursor.getLong(index_takerId));
+                result.setCreator_id(cursor.getLong(index_creatorId));
+                result.setGroup_no(cursor.getLong(index_group));
+                result.setName(cursor.getString(index_name));
+                result.setMarks(cursor.getInt(index_marks));
+                result.setTotal(cursor.getInt(index_total));
+                result.setDate(cursor.getString(index_date));
+                results.add(result);
+            } while (cursor.moveToNext());
+            cursor.close();
+        } else
+            results = Collections.emptyList();
+        return results;
     }
 
     public List<Friends> getFriendsList() {
@@ -324,6 +395,9 @@ public class DBAskUrFrnd {
                 break;
             case TABLE_SUGGESTIONS:
                 table_name = MySQLiteHelper.TABLE_SUGGESTIONS;
+                break;
+            case TABLE_RESULT:
+                table_name = MySQLiteHelper.TABLE_RESULT;
                 break;
         }
         return table_name;

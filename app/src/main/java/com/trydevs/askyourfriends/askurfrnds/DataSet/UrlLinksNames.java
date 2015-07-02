@@ -14,6 +14,7 @@ public class UrlLinksNames {
     public static final String URL_DOWNLOAD_QUIZ = "getQuestions.php";
     public static final String URL_GET_NEW_INFO = "getNewInfo.php";
     public static final String URL_QUIZ_RESULT = "getResult.php";
+    public static final String URL_QUIZ_FIND_RESULT = "findMyResult.php";
     public static final String LOGIN_FILE_NAME = "login_detail";
     public static final String URL_FORGOT_PASSWORD = "forgotPassword.php";
     public static final String URL_GET_PEOPLE_LIST = "getPeopleList.php";
@@ -144,6 +145,10 @@ public class UrlLinksNames {
 
     public static String getUrlQuizResult() {
         return URL_BASE + URL_QUIZ_RESULT;
+    }
+
+    public static String getUrlQuizFindResult() {
+        return URL_BASE + URL_QUIZ_FIND_RESULT;
     }
 
     public static String getUrlConfirmFriends() {

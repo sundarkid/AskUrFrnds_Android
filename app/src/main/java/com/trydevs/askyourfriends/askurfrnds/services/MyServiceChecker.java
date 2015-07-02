@@ -8,6 +8,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.RequestFuture;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Info;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Questions;
+import com.trydevs.askyourfriends.askurfrnds.DataSet.Result;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.UrlLinksNames;
 import com.trydevs.askyourfriends.askurfrnds.Network.CustomRequest;
 import com.trydevs.askyourfriends.askurfrnds.Network.VolleySingleton;
@@ -140,6 +141,20 @@ public class MyServiceChecker extends JobService {
                     }
                     if (list.size() > 0)
                         MyApplication.getWritableDatabase().insertQuestions(list);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (response.has("object"))
+                    try {
+                        String s = response.getString("object");
+                        JSONArray jsonArray = new JSONArray(s);
+                        List<Result> results = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            results.add(Result.getResultFromJSON(object));
+                        }
+                        if (results.size() > 0)
+                            MyApplication.getWritableDatabase().insertResults(results);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

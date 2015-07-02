@@ -107,7 +107,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void constructJob() {
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, MyServiceChecker.class));
-        long time = 1000 * 60 * 2;
+        long time = 1000 * 60 * 5;
         builder.setPeriodic(time)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setPersisted(true);

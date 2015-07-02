@@ -234,7 +234,7 @@ public class DBAskUrFrnd {
                 MySQLiteHelper.COLUMN_TOTAL,
                 MySQLiteHelper.COLUMN_DATE
         };
-        Cursor cursor = database.query(getTableName(TABLE_FRIENDS), columns, null, null, null, null, null);
+        Cursor cursor = database.query(getTableName(TABLE_RESULT), columns, null, null, null, null, columns[0] + " DESC ");
         if (cursor != null && cursor.moveToFirst()) {
             int index_sno = cursor.getColumnIndex(MySQLiteHelper.COLUMN_SNO);
             int index_takerId = cursor.getColumnIndex(MySQLiteHelper.COLUMN_TAKER_ID);

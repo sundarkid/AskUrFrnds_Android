@@ -10,7 +10,7 @@ import org.json.JSONObject;
  * Created by Sundareswaran on 28-06-2015.
  */
 public class Result implements Parcelable {
-    public static final Parcelable.Creator<Result> CREATOR = new Parcelable.Creator<Result>() {
+    public static final Creator<Result> CREATOR = new Creator<Result>() {
         public Result createFromParcel(Parcel source) {
             return new Result(source);
         }
@@ -31,6 +31,7 @@ public class Result implements Parcelable {
         marks = 0;
         total = 0;
         date = "";
+        name = "";
     }
 
     protected Result(Parcel in) {
@@ -41,6 +42,7 @@ public class Result implements Parcelable {
         this.marks = in.readInt();
         this.total = in.readInt();
         this.date = in.readString();
+        this.name = in.readString();
     }
 
     public static Result getResultFromJSON(JSONObject object) {
@@ -48,6 +50,8 @@ public class Result implements Parcelable {
         try {
             if (object.has(UrlLinksNames.getJsonSno()))
                 result.setSno(object.getLong(UrlLinksNames.getJsonSno()));
+            if (object.has(UrlLinksNames.getJsonName()))
+                result.setName(object.getString(UrlLinksNames.getJsonName()));
             if (object.has(UrlLinksNames.getJsonTakerId()))
                 result.setTaker_id(object.getLong(UrlLinksNames.getJsonTakerId()));
             if (object.has(UrlLinksNames.getJsonCreatorId()))
@@ -144,5 +148,6 @@ public class Result implements Parcelable {
         dest.writeInt(this.marks);
         dest.writeInt(this.total);
         dest.writeString(this.date);
+        dest.writeString(this.name);
     }
 }

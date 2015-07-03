@@ -6,6 +6,7 @@
     tools:context="com.trydevs.askyourfriends.askurfrnds.fragments.FragmentViewQuizList">
 
     <TextView
+        android:id="@+id/textView_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

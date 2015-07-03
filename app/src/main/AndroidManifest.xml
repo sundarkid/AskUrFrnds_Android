@@ -59,10 +59,13 @@
 
         <activity
             android:name=".activity.AddFriendsActivity"
-            android:label="@string/title_activity_add_friends"></activity>
+            android:label="@string/title_activity_add_friends" />
         <activity
             android:name=".activity.ResultActivity"
-            android:label="@string/title_activity_result">
+            android:label="@string/title_activity_result"></activity>
+        <activity
+            android:name=".activity.InfoActivity"
+            android:label="@string/title_activity_info">
         </activity>
     </application>
 

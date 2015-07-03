@@ -73,6 +73,7 @@ public class CreateQuiz extends ActionBarActivity implements FragmentCreateQuizQ
             Toast.makeText(this, friends.getName(), Toast.LENGTH_SHORT).show();
         }
         initialize();
+        viewPager.setCurrentItem(FRAGMENT_VIEW_QUESTIONS, true);
 
     }
 
@@ -103,8 +104,6 @@ public class CreateQuiz extends ActionBarActivity implements FragmentCreateQuizQ
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setCustomTabView(R.layout.tab_ripple, R.id.textView_tab_ripple);
         slidingTabLayout.setViewPager(viewPager);
-
-
     }
 
     @Override

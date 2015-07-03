@@ -43,6 +43,11 @@ public class MyAdapterResult extends RecyclerView.Adapter<MyAdapterResult.MyView
         holder.date.setText(current.getDate());
     }
 
+    public void onUpdated(List<Result> list) {
+        data = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return data.size();

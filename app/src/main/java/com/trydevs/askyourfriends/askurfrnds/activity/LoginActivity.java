@@ -50,7 +50,7 @@ public class LoginActivity extends ActionBarActivity {
         loginDetails = getSharedPreferences(UrlLinksNames.getLoginFileName(), 0);
         int user_id = loginDetails.getInt("user_id", 0);
         String unique_id = loginDetails.getString("unique_id", "");
-        // Checking for discrepency
+        // Checking for discrepancy
         if (!(user_id == 0 || unique_id.equals(""))) {
             SharedPreferences.Editor editor = loginDetails.edit();
             editor.clear();

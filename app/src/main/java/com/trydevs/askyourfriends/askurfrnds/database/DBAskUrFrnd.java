@@ -166,6 +166,7 @@ public class DBAskUrFrnd {
     public List<Questions> readAllQuestions(int table) {
         List<Questions> list = Collections.emptyList();
         String[] columns = {
+                MySQLiteHelper.COLUMN_SNO,
                 MySQLiteHelper.COLUMN_QUESTION,
                 MySQLiteHelper.COLUMN_OPTION_A,
                 MySQLiteHelper.COLUMN_OPTION_B,
@@ -174,7 +175,7 @@ public class DBAskUrFrnd {
                 MySQLiteHelper.COLUMN_ANSWER,
         };
 
-        Cursor cursor = database.query(getTableName(table), columns, null, null, null, null, null);
+        Cursor cursor = database.query(getTableName(table), columns, null, null, null, null, columns[0] + " DESC ");
         if (cursor != null && cursor.moveToFirst()) {
             list = new ArrayList<>();
             int index_question = cursor.getColumnIndex(MySQLiteHelper.COLUMN_QUESTION);

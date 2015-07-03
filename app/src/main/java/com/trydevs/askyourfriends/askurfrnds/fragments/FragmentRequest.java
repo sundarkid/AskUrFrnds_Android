@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -43,11 +44,11 @@ public class FragmentRequest extends Fragment {
     RecyclerView recyclerView;
     MyAdapterRequest adapterRequest;
     SharedPreferences loginDetails;
+    TextView info;
     private int SPACES_BETWEEN_ITEMS = 2;
     private String unique_id, name;
     private long user_id;
     private RequestQueue requestQueue;
-
     public FragmentRequest() {
         // Required empty public constructor
     }
@@ -60,6 +61,7 @@ public class FragmentRequest extends Fragment {
         View view = inflater.inflate(R.layout.fragment_request, container, false);
         // Mapping the views
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewUserList);
+        info = (TextView) view.findViewById(R.id.textView_info);
         // Dummy data
         List<Friends> list = Collections.emptyList();
         // Setting adapter for RecyclerView
@@ -102,8 +104,10 @@ public class FragmentRequest extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    if (friendsList.size() > 0)
+                    if (friendsList.size() > 0) {
                         adapterRequest.updateData(friendsList);
+                        info.setText("");
+                    }
                 }
             }
         }, new Response.ErrorListener() {

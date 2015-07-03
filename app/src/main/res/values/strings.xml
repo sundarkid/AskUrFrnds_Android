@@ -58,6 +58,7 @@
     <string name="forgot_password_success">A mail has been sent to your mail id.\nIt may take some time to reach you.</string>
     <string name="forgot_password_not_found">The mail id was not found.</string>
     <string name="forgot_password_error">Something went wrong please try again.</string>
+    <string name="no_new_data_found">No new data found.</string>
     <string name="title_activity_add_friends">Add Friends</string>
     <string name="action_logout">Logout</string>
     <string name="action_result">Results</string>
@@ -71,5 +72,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_result">Results</string>
+    <string name="no_suggestions">No suggestions create your questions and they will be added to your suggestions.</string>
+    <string name="privacy_and_terms">I Agree to the terms and conditions and privacy statements.</string>
+    <string name="contacts_data">Your contact details will not be visible to anyone.</string>
+    <string name="title_activity_info">InfoActivity</string>
+    <string name="trydevs_link">http://www.trydevs.in</string>
+    <string name="sundar">Sundareswaran</string>
+    <string name="developer">Developer,</string>
+    <string name="email">sundareswaran@trydevs.in</string>
+    <string name="info">Ask Your Friends is an app that is got from a small idea from a few friends. \n If you have any problems please contact us. \n you can also view us in the link \n http://www.askyourfriend.in</string>
 
 </resources>

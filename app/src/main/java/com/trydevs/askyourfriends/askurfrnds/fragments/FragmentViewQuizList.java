@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.trydevs.askyourfriends.askurfrnds.Adapters.MyAdapterViewQuizList;
 import com.trydevs.askyourfriends.askurfrnds.DataSet.Info;
@@ -30,6 +31,7 @@ public class FragmentViewQuizList extends Fragment {
     RecyclerView recyclerView;
     MyAdapterViewQuizList adapterViewQuizList;
     List<Info> list;
+    TextView info;
 
     public FragmentViewQuizList() {
         // Required empty public constructor
@@ -43,6 +45,7 @@ public class FragmentViewQuizList extends Fragment {
         View view = inflater.inflate(R.layout.fragments_quiz_list, container, false);
         // Mapping the views
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_quiz_list);
+        info = (TextView) view.findViewById(R.id.textView_info);
         SharedPreferences loginDetails = getActivity().getSharedPreferences(UrlLinksNames.getLoginFileName(), 0);
         // Setting Adapter
         list = Collections.emptyList();
@@ -58,5 +61,7 @@ public class FragmentViewQuizList extends Fragment {
         super.onResume();
         List<Info> newList = MyApplication.getWritableDatabase().getInfo();
         adapterViewQuizList.newListData(newList);
+        if (newList.size() > 0)
+            info.setText("");
     }
 }

@@ -2,6 +2,7 @@ package com.trydevs.askyourfriends.askurfrnds.DataSet;
 
 
 public class UrlLinksNames {
+    public static final String URL_TRYDEVS = "http://trydevs.in/";
     public static final String URL_BASE = "http://askyourfriend.in/";
     public static final String URL_ADD_FRIENDS = "addFriends.php";
     public static final String URL_FRIEND_REQUESTS = "getFriendRequestList.php";
@@ -19,6 +20,8 @@ public class UrlLinksNames {
     public static final String URL_FORGOT_PASSWORD = "forgotPassword.php";
     public static final String URL_GET_PEOPLE_LIST = "getPeopleList.php";
     public static final String URL_CHECK = "checkSql.php";
+    public static final String URL_INFO = "info.php";
+    public static final String URL_PRIVACY_AND_TERMS = "privacyAndTerms.html";
 
     public static final String JSON_USER_ID = "user_id";
     public static final String JSON_QUESTION_ID = "q_id";
@@ -125,6 +128,18 @@ public class UrlLinksNames {
 
     public static String getUrlBase() {
         return URL_BASE;
+    }
+
+    public static String getUrlTrydevs() {
+        return URL_TRYDEVS;
+    }
+
+    public static String getUrlInfo() {
+        return URL_BASE + URL_INFO;
+    }
+
+    public static String getUrlPrivacyAndTerms() {
+        return URL_BASE + URL_PRIVACY_AND_TERMS;
     }
 
     public static String getUrlFriendList() {

@@ -1,11 +1,14 @@
 package com.trydevs.askyourfriends.askurfrnds.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -27,12 +30,12 @@ import static com.android.volley.Request.Method.POST;
 
 public class SignupActivity extends ActionBarActivity {
 
+    private static RequestQueue requestQueue;
+    public String clear = "";
     Toolbar toolbar;
     EditText name, email, phone, institution, place, password;
+    TextView terms;
     Button signup, reset;
-    private static RequestQueue requestQueue;
-
-    public String clear = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class SignupActivity extends ActionBarActivity {
         password = (EditText) findViewById(R.id.signup_password);
         signup = (Button) findViewById(R.id.signup_signup);
         reset = (Button) findViewById(R.id.signup_reset);
+        terms = (TextView) findViewById(R.id.privacy_and_terms);
         // Getting the request queue
         requestQueue = VolleySingleton.getInstance().getmRequestQueue();
         // Setting button click listeners
@@ -67,6 +71,13 @@ public class SignupActivity extends ActionBarActivity {
                 institution.setText(clear);
                 place.setText(clear);
                 password.setText(clear);
+            }
+        });
+        terms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(UrlLinksNames.getUrlPrivacyAndTerms()));
+                startActivity(intent);
             }
         });
         signup.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +124,8 @@ public class SignupActivity extends ActionBarActivity {
                     requestQueue.add(customRequest);
                 } else {
                     String emptyFieldsMessage = getResources().getString(R.string.emptyFieldMessage);
-                    Toast.makeText(SignupActivity.this, emptyFieldsMessage, Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignupActivity.this, emptyFieldsMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, getResources().getString(R.string.contacts_data), Toast.LENGTH_LONG).show();
                 }
 
             }

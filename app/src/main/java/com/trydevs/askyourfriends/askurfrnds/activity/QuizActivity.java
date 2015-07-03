@@ -112,6 +112,7 @@ public class QuizActivity extends ActionBarActivity {
                                                 List<Result> results = new ArrayList<>();
                                                 results.add(Result.getResultFromJSON(object));
                                                 MyApplication.getWritableDatabase().insertResults(results);
+                                                finish();
                                             }
                                         }
                                 }
@@ -123,7 +124,7 @@ public class QuizActivity extends ActionBarActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(QuizActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(QuizActivity.this, getResources().getString(R.string.forgot_password_error), Toast.LENGTH_LONG).show();
                     }
                 });
                 Log.d("json", adapterMyQuestions.getAnswerJsonArray().toString());

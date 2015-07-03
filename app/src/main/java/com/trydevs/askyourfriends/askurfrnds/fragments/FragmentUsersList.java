@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -48,6 +49,7 @@ public class FragmentUsersList extends Fragment {
     long user_id;
     String unique_id;
     RequestQueue requestQueue;
+    TextView info;
     private int SPACES_BETWEEN_ITEMS = 2;
 
     public FragmentUsersList() {
@@ -62,7 +64,10 @@ public class FragmentUsersList extends Fragment {
         // Mapping the views
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewUserList);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout_user_list);
+        info = (TextView) view.findViewById(R.id.textView_info);
+        // Getting request queue
         requestQueue = VolleySingleton.getInstance().getmRequestQueue();
+        // getting shared preference data
         loginDetails = getActivity().getSharedPreferences(UrlLinksNames.getLoginFileName(), 0);
         user_id = loginDetails.getInt("user_id", 0);
         unique_id = loginDetails.getString("unique_id", "");
@@ -138,6 +143,8 @@ public class FragmentUsersList extends Fragment {
         if (check == 1) {
             List<Friends> friendsList = MyApplication.getWritableDatabase().getFriendsList();
             userListAdapter.newListData(friendsList);
+            if (friendsList.size() > 0)
+                info.setText("");
         }
     }
 }

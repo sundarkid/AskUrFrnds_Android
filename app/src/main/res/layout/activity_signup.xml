@@ -1,10 +1,14 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.trydevs.askyourfriends.askurfrnds.activity.SignupActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <include
         android:id="@+id/top_bar_signup"
         layout="@layout/top_bar" />
@@ -63,6 +67,14 @@
             android:inputType="textPassword"
             android:lines="1" />
 
+        <TextView
+            android:id="@+id/privacy_and_terms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/privacy_and_terms"
+            android:textColor="@color/black" />
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -91,5 +103,5 @@
         </TableRow>
 
     </LinearLayout>
-
 </LinearLayout>
+</ScrollView>
